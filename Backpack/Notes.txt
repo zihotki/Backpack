@@ -1,13 +1,15 @@
 ﻿Backpack, universal way of implicitly storing contextual information useful for logging/tracing/error reporting through the call chain
 
-1. Use scopes to define root level data bucket
-2. Use the approach for storing data on CallContext from LogContext from serilog
+* Provide a way to copy all data to external container to pass to child tasks run in parralel 
 
-3. Provide a way to copy all data to external container to pass to child tasks run in parralel 
-	- should the data be cloned or just the container reference be passed?
-	- how task.run handles the errors? should the run function have it's own scope with error handling?
-	- how async await works with configure await and when it runs a separate task or on different thread? is call context passed across the chain?
-	- how to flexibly store data so that serilog can still use its own properties (InfoOrErrorProp...) 
+- should the data be cloned or just the container reference be passed?
+	? we can allow only immutable data - string, byte, json string, int, bool, guid. This way it'll be easier to send the data over the wire and data won't need
+		to be serialized each time, it's more optimal especially for complex objects. But it raises the question how to store the data. Backpack item per each?
+	? allow objects and serialize them each time
+
+- how task.run handles the errors? should the run function have it's own scope with error handling?
+- how async await works with configure await and when it runs a separate task or on different thread? is call context passed across the chain?
+- how to flexibly store data so that serilog can still use its own properties (InfoOrErrorProp...) 
 	
 
 ----------

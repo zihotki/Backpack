@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace Backpack
 {
@@ -37,8 +38,8 @@ namespace Backpack
 
         public static BackpackItem Get(string name)
         {
-            var item = CurrentScope.Value;
-            var currentData = item.Data;
+            var scope = CurrentScope.Value;
+            var currentData = scope.Data;
 
             do
             {
@@ -47,59 +48,75 @@ namespace Backpack
                     return currentData[name];
                 }
 
-                currentData = item.Parent?.Data;
+                currentData = scope.Parent?.Data;
             } while (currentData != null);
 
             return null;
         }
 
-       /*
+        public static IEnumerable<BackpackItem> GetAll()
+        {
+            var scope = CurrentScope.Value;
+            var currentData = scope.Data;
 
-		#if ASYNCLOCAL
+            do
+            {
+                foreach (var item in currentData.Values)
+                {
+                    yield return item;
+                }
 
-				static List<BackpackItem> Enrichers
-				{
-					get
-					{
-						return Data.Value;
-					}
-					set
-					{
-						Data.Value = value;
-					}
-				}
+                currentData = scope.Parent?.Data;
+            } while (currentData != null);
+        }
 
-		#elif REMOTING
+        /*
 
-				static ImmutableStack<BackpackItem> Enrichers
-				{
-					get
-					{
-						var objectHandle = CallContext.LogicalGetData(DataSlotName) as ObjectHandle;
+         #if ASYNCLOCAL
 
-						return objectHandle?.Unwrap() as List<BackpackItem>;
-					}
-					set
-					{
-						CallContext.LogicalSetData(DataSlotName, new ObjectHandle(value));
-					}
-				}
+                 static List<BackpackItem> Enrichers
+                 {
+                     get
+                     {
+                         return Data.Value;
+                     }
+                     set
+                     {
+                         Data.Value = value;
+                     }
+                 }
 
-		#else // DOTNET_51
+         #elif REMOTING
 
-				static List<BackpackItem> Enrichers
-				{
-					get
-					{
-						return Data;
-					}
-					set
-					{
-						Data = value;
-					}
-				}
-		#endif
-		*/
+                 static ImmutableStack<BackpackItem> Enrichers
+                 {
+                     get
+                     {
+                         var objectHandle = CallContext.LogicalGetData(DataSlotName) as ObjectHandle;
+
+                         return objectHandle?.Unwrap() as List<BackpackItem>;
+                     }
+                     set
+                     {
+                         CallContext.LogicalSetData(DataSlotName, new ObjectHandle(value));
+                     }
+                 }
+
+         #else // DOTNET_51
+
+                 static List<BackpackItem> Enrichers
+                 {
+                     get
+                     {
+                         return Data;
+                     }
+                     set
+                     {
+                         Data = value;
+                     }
+                 }
+         #endif
+         */
 
     }
 }

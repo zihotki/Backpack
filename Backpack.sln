@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Tests.CoreFramewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Serilog", "Backpack.Serilog\Backpack.Serilog.csproj", "{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Zipkin4net", "Backpack.Zipkin4net\Backpack.Zipkin4net.csproj", "{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Zipkin", "Backpack.Zipkin\Backpack.Zipkin.csproj", "{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{867E1A29-EE3E-47A8-850C-707EC9ACF20A}"
 EndProject
