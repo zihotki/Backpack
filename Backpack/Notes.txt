@@ -1,0 +1,19 @@
+﻿Backpack, universal way of implicitly storing contextual information useful for logging/tracing/error reporting through the call chain
+
+1. Use scopes to define root level data bucket
+2. Use the approach for storing data on CallContext from LogContext from serilog
+
+3. Provide a way to copy all data to external container to pass to child tasks run in parralel 
+	- should the data be cloned or just the container reference be passed?
+	- how task.run handles the errors? should the run function have it's own scope with error handling?
+	- how async await works with configure await and when it runs a separate task or on different thread? is call context passed across the chain?
+	- how to flexibly store data so that serilog can still use its own properties (InfoOrErrorProp...) 
+	
+
+----------
+
+Serilog.UseBackpack()
+Zipkin.UseBackpack()
+
+----------
+
