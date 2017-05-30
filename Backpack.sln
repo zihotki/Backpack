@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack", "Backpack\Backpack.csproj", "{2924C2C6-993E-48EC-9CF6-33A78E75CA95}"
 EndProject
@@ -10,6 +10,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Tests.Framework", "Backpack.Tests.Framework\Backpack.Tests.Framework.csproj", "{CF64E8FB-76DD-41FC-B11B-3CAB74BF4EC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Tests.CoreFramework", "Backpack.Tests.CoreFramework\Backpack.Tests.CoreFramework.csproj", "{605F89F1-A20C-46E4-88CD-EF04302AC193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Serilog", "Backpack.Serilog\Backpack.Serilog.csproj", "{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backpack.Zipkin4net", "Backpack.Zipkin4net\Backpack.Zipkin4net.csproj", "{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{867E1A29-EE3E-47A8-850C-707EC9ACF20A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{8660E32B-6496-40C7-868B-F061CFF3D148}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +41,22 @@ Global
 		{605F89F1-A20C-46E4-88CD-EF04302AC193}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{605F89F1-A20C-46E4-88CD-EF04302AC193}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{605F89F1-A20C-46E4-88CD-EF04302AC193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF64E8FB-76DD-41FC-B11B-3CAB74BF4EC4} = {867E1A29-EE3E-47A8-850C-707EC9ACF20A}
+		{605F89F1-A20C-46E4-88CD-EF04302AC193} = {867E1A29-EE3E-47A8-850C-707EC9ACF20A}
+		{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C} = {8660E32B-6496-40C7-868B-F061CFF3D148}
+		{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238} = {8660E32B-6496-40C7-868B-F061CFF3D148}
 	EndGlobalSection
 EndGlobal

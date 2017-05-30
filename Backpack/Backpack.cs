@@ -4,28 +4,27 @@ namespace Backpack
 {
     public static class Backpack
     {
-        static readonly AsyncLocal<LinkedItem> Data = new AsyncLocal<LinkedItem>();
+        private static readonly AsyncLocal<BackpackScope> CurrentScope = new AsyncLocal<BackpackScope>();
 
-		public static BackpackCleaner CreateScope()
+		public static BackpackScope CreateScope()
 		{
-		    var newScope = new LinkedItem {Parent = Data.Value};
+		    var newScope = new BackpackScope(CurrentScope.Value);
+		    CurrentScope.Value = newScope;
 
-		    Data.Value = newScope;
-
-			return new BackpackCleaner(newScope);
+			return newScope;
 		}
 
 		public static BackpackItem Add(string name, string value)
 		{
-		    var data = Data.Value.Data;
+		    var data = CurrentScope.Value.Data;
             var item = new BackpackItem(name, value, data);
 		    data[name] = item;
 		    return item;
 		}
 
-		internal static void Clean(LinkedItem currentItem)
+		internal static void Clean(BackpackScope currentItem)
 		{
-			Data.Value = currentItem.Parent;
+			CurrentScope.Value = currentItem.Parent;
 
 			do
 			{
@@ -38,7 +37,7 @@ namespace Backpack
 
         public static BackpackItem Get(string name)
         {
-            var item = Data.Value;
+            var item = CurrentScope.Value;
             var currentData = item.Data;
 
             do
