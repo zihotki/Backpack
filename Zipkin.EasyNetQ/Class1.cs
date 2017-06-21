@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Backpack.Zipkin4net
+namespace Zipkin.Rabbitmq
 {
     public class Class1
     {

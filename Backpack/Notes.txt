@@ -12,10 +12,36 @@
 - how to flexibly store data so that serilog can still use its own properties (InfoOrErrorProp...) 
 	
 
+add Get for current scope (scope-limited Get)
+
 ----------
 
 Serilog.UseBackpack()
 Zipkin.UseBackpack()
 
 ----------
+
+Zipkin:
+    * Spans will not expose information about Annotations and will create necessary Annotations (cs, cr, ss, sr) implicitly by using timestamps of Constructor and Close method calls.
+	* To add a binary annotation you need to put a variable in Backpack with either Shared or Zipkin flag
+	* ?? All predefined zipkin annotations will be stored in backpack with 'z_' prefix and will be mapped to corresponding annotation when sending data
+	* ?? how to store information about error when unwinding the scopes
+	
+----------
+
+todo:
+	Implement functionality to load trace/span from http calls
+	Implement functionality to spread trace/span into http calls
+	Implement direct ES codec
+	Add functionality to server span to initialize isSampled, Trace, etc. if trace hasn't been started yet
+	Local vs hidden items, which one to use, shall it be unified?
+
+	
+	implement support for binary annotations
+
+	
+
+
+
+
 

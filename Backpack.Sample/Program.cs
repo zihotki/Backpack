@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Backpack.Sample
+namespace BackpackCore.Sample
 {
 	class Program
 	{
@@ -22,15 +18,15 @@ namespace Backpack.Sample
 			    M1();
                 
                 cleaner.Remove();
+
+				backpack.Clear();
 			}
 			catch (Exception e)
 			{
-				// log error with data in backpack
-			    Console.WriteLine(e.ToString());
-			}
-			finally
-			{
-				backpack.Clean();
+				// log error
+				Console.WriteLine(e.ToString());
+
+				backpack.Clear(e);
 			}
 
 		    Console.ReadLine();
@@ -73,7 +69,7 @@ namespace Backpack.Sample
 	        }
 	        finally
 	        {
-	            backpack.Clean();
+	            backpack.Clear();
 	        }
 
 	        PrintBackpackValue("surname");
@@ -82,7 +78,7 @@ namespace Backpack.Sample
 	    private static void PrintBackpackValue(string itemName)
 	    {
 	        var item = Backpack.Get(itemName);
-	        Console.WriteLine($"Read {itemName}:{item?.Value} from context");
+	        Console.WriteLine($"Read {itemName}:{item?.StringValue} from context");
 	    }
 	}
 }

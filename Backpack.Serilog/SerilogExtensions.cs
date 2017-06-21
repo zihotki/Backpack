@@ -1,7 +1,6 @@
 ﻿using Serilog.Configuration;
-using Backpack.Serilog;
 
-namespace Serilog
+namespace Serilog.Bckpck
 {
     public static class SerilogExtensions
     {

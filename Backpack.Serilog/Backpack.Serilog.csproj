@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>netstandard1.5</TargetFramework>
+    <AssemblyName>Serilog.Backpack</AssemblyName>
+    <RootNamespace>Serilog.Bckpck</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Backpack\Backpack.csproj" />
+    <ProjectReference Include="..\Backpack\BackpackCore.csproj" />
   </ItemGroup>
 
 </Project>

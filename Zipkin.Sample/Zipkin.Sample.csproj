@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E5DFCE80-5F98-4400-8A46-DD68CFBFCB91}</ProjectGuid>
+    <ProjectGuid>{D19FDFFA-A94D-48E1-8847-781B3E3471D7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Bckpck.Sample</RootNamespace>
-    <AssemblyName>Backpack.Sample</AssemblyName>
+    <RootNamespace>Zipkin.Sample</RootNamespace>
+    <AssemblyName>Zipkin.Sample</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,6 +34,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,16 +45,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleSpanDispatcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Backpack\BackpackCore.csproj">
       <Project>{2924c2c6-993e-48ec-9cf6-33a78e75ca95}</Project>
       <Name>BackpackCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zipkin\Zipkin.csproj">
+      <Project>{2ebd5c32-ed3b-4e90-9b24-fa2dd7450238}</Project>
+      <Name>Zipkin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
