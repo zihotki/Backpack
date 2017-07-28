@@ -9,11 +9,35 @@ namespace Zipkin.Tracers
 	{
 		public LocalBackpackTrace(string name) : base(name)
 		{
-		}
+			var parentSpanId = Backpack.Get(BackpackItemNames.SpanId, default(long));
 
-	    protected override void AppendDataForSampledSpan()
-	    {
-		    Scope.Add(BackpackItemNames.SpanType, (byte)SpanType.Local);
+			// isdebug should be also set somewhere at the root
+			var isDebug = Scope.Get(BackpackItemNames.IsDebug, false);
+			// sampling should be also set at the root from parent scope or decided if it's a root scope
+			var isSampled = Scope.Get(BackpackItemNames.IsSampled, false);
+
+			if (isSampled || isDebug)
+			{
+				Scope.Add(BackpackItemNames.SpanName, name);
+				// for child traces it should come from backpack itself
+				// for root it should be set by infrastructure
+				// Backpack.Add(ZipkinItems.TraceId, "");
+				// span id is always unique
+				Scope.Add(BackpackItemNames.SpanId, RandomHelper.NewId());
+
+				if (parentSpanId != default(long))
+				{
+					Scope.Add(BackpackItemNames.ParentSpanId, parentSpanId);
+				}
+
+				Scope.Add(BackpackItemNames.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+					isHidden: true);
+				Scope.Add(BackpackItemNames.SpanStartInTicks, TickClock.Start(),
+					isHidden: true);
+
+				// The function should be used only to populate data for the span into Backpack
+				Scope.Add(BackpackItemNames.SpanType, (byte)SpanType.Local);
+			}
 		}
 	}
 }
