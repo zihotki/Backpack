@@ -24,16 +24,16 @@ namespace Zipkin.EasyNetQ
 				var consumer = scope.Resolve<TConsumer>();
 
 				var traceInfo = TraceInfoUtil.TraceInfo;
-				var trace = new ServerBackpackTrace(typeof(TConsumer).FullName, traceInfo);
+				var trace = new ServerBackpackTrace(GetTraceName<TMessage, TConsumer>(), traceInfo);
 
 				try
 				{
 					consumer.Consume(message);
-					trace.Clean();
+					trace.Finish();
 				}
 				catch (Exception e)
 				{
-					trace.Clean(e);
+					trace.Finish(e);
 					throw;
 				}
 			}
@@ -46,7 +46,7 @@ namespace Zipkin.EasyNetQ
 			var scope = _component.BeginLifetimeScope("async-message");
 
 			var traceInfo = TraceInfoUtil.TraceInfo;
-			var trace = new ServerBackpackTrace(typeof(TConsumer).FullName, traceInfo);
+			var trace = new ServerBackpackTrace(GetTraceName<TMessage, TConsumer>(), traceInfo);
 			
 			var consumer = scope.Resolve<TConsumer>();
 			var tsc = new TaskCompletionSource<object>();
@@ -58,19 +58,24 @@ namespace Zipkin.EasyNetQ
 
 					if (task.IsFaulted && task.Exception != null)
 					{
-						trace.Clean(task.Exception);
+						trace.Finish(task.Exception);
 
 						tsc.SetException(task.Exception);
 					}
 					else
 					{
-						trace.Clean();
+						trace.Finish();
 
 						tsc.SetResult(null);
 					}
 				});
 
 			return tsc.Task;
+		}
+
+		private static string GetTraceName<TMessage, TConsumer>()
+		{
+			return $"{typeof(TConsumer).FullName} {typeof(TMessage).Name}";
 		}
 	}
 }
