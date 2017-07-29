@@ -1,6 +1,6 @@
 ﻿namespace Zipkin.Constants
 {
-	public static class BackpackItemNames
+	public static class BackpackConstants
 	{
 		public const string SpanName = "Zipkin.SpanName";
 		public const string TraceId = "Zipkin.TraceId";

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.5</TargetFramework>
+    <TargetFrameworks>net461;netstandard1.5;</TargetFrameworks>
     <AssemblyName>Zipkin.EasyNetQ</AssemblyName>
     <RootNamespace>Zipkin.EasyNetQ</RootNamespace>
   </PropertyGroup>
@@ -11,7 +11,21 @@
     <PackageReference Include="EasyNetQ" Version="1.0.0" />
   </ItemGroup>
 
+<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
+	<PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
+    <PackageReference Include="System.Threading" Version="4.3.0" />
+  </ItemGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj" />
     <ProjectReference Include="..\Zipkin\Zipkin.csproj" />
   </ItemGroup>
 

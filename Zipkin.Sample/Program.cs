@@ -51,8 +51,8 @@ namespace Zipkin.Sample
 					var trace = new ServerBackpackTrace("Order processing");
 
 					// this should be set at the entry point of an app
-					Backpack.Add(BackpackItemNames.IsSampled, true);
-					Backpack.Add(BackpackItemNames.TraceId, Guid.NewGuid());
+					Backpack.Add(BackpackConstants.IsSampled, true);
+					Backpack.Add(BackpackConstants.TraceId, Guid.NewGuid());
 
 					Backpack.Add("CartId", 233322 + i);
 

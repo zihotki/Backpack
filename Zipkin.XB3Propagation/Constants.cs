@@ -1,6 +1,6 @@
-﻿namespace Zipkin
+﻿namespace Zipkin.XB3Propagation
 {
-	public static class Headers
+	public static class Constants
 	{
 		public const string TRACE_ID = "X─B3─TraceId";
 		public const string SPAN_ID = "X─B3─SpanId";
