@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backpack.Tests.Framework", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backpack.Tests.CoreFramework", "Backpack.Tests.CoreFramework\Backpack.Tests.CoreFramework.csproj", "{605F89F1-A20C-46E4-88CD-EF04302AC193}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backpack.Serilog", "Backpack.Serilog\Backpack.Serilog.csproj", "{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Backpack", "Serilog.Backpack\Serilog.Backpack.csproj", "{89EDCD9A-6546-490A-9E6B-BA8CF2DB7E5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin", "Zipkin\Zipkin.csproj", "{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin", "Zipkin\Zipkin\Zipkin.csproj", "{2EBD5C32-ED3B-4E90-9B24-FA2DD7450238}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{867E1A29-EE3E-47A8-850C-707EC9ACF20A}"
 EndProject
@@ -21,13 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zipkin", "Zipkin", "{9C533E58-C6B8-4AAC-A00D-94E78B2216CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Sample", "Zipkin.Sample\Zipkin.Sample.csproj", "{D19FDFFA-A94D-48E1-8847-781B3E3471D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Sample", "Zipkin\Zipkin.Sample\Zipkin.Sample.csproj", "{D19FDFFA-A94D-48E1-8847-781B3E3471D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.EasyNetQ", "Zipkin.EasyNetQ\Zipkin.EasyNetQ.csproj", "{7EBF01B9-9DDD-42F8-AC09-B86944BC2B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.EasyNetQ", "Zipkin\Zipkin.EasyNetQ\Zipkin.EasyNetQ.csproj", "{7EBF01B9-9DDD-42F8-AC09-B86944BC2B17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.XB3Propagation", "Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj", "{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.XB3Propagation", "Zipkin\Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj", "{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Tests", "Zipkin.Tests\Zipkin.Tests.csproj", "{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Tests", "Zipkin\Zipkin.Tests\Zipkin.Tests.csproj", "{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
