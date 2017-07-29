@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zipkin.EasyNetQ\Zipkin.EasyNetQ.csproj" />
+    <ProjectReference Include="..\Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj" />
+    <ProjectReference Include="..\Zipkin\Zipkin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CoreTests\" />
+    <Folder Include="EasyNetQTests\" />
+    <Folder Include="XB3PropogationTests\" />
+  </ItemGroup>
+
+</Project>

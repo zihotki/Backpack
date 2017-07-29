@@ -25,7 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Sample", "Zipkin.Sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.EasyNetQ", "Zipkin.EasyNetQ\Zipkin.EasyNetQ.csproj", "{7EBF01B9-9DDD-42F8-AC09-B86944BC2B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.XB3Propagation", "Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj", "{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.XB3Propagation", "Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj", "{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Tests", "Zipkin.Tests\Zipkin.Tests.csproj", "{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +88,6 @@ Global
 		{D19FDFFA-A94D-48E1-8847-781B3E3471D7} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
 		{7EBF01B9-9DDD-42F8-AC09-B86944BC2B17} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
 		{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
+		{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
 	EndGlobalSection
 EndGlobal
