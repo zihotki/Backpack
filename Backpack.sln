@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackpackCore", "Backpack\BackpackCore.csproj", "{2924C2C6-993E-48EC-9CF6-33A78E75CA95}"
 EndProject
@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.EasyNetQ", "Zipkin\Z
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.XB3Propagation", "Zipkin\Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj", "{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipkin.Tests", "Zipkin\Zipkin.Tests\Zipkin.Tests.csproj", "{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.Tests", "Zipkin\Zipkin.Tests\Zipkin.Tests.csproj", "{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,5 +89,8 @@ Global
 		{7EBF01B9-9DDD-42F8-AC09-B86944BC2B17} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
 		{127F6DCA-36B7-4ED2-AF1C-B92C31FC1060} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
 		{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {939C508E-D507-491B-A1DD-E7E68A58576D}
 	EndGlobalSection
 EndGlobal

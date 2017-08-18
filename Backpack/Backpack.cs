@@ -171,5 +171,10 @@ namespace BackpackCore
 		{
 			LocalCurrentScope.Value = currentItem.Parent;
 		}
+
+	    internal static void Reset()
+	    {
+		    LocalCurrentScope.Value = null;
+	    }
     }
 }
