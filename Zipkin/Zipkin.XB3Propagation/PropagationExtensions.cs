@@ -15,7 +15,6 @@ namespace Zipkin.XB3Propagation
 			    return;
 		    }
 
-
 			headers[Constants.TRACE_ID] = traceInfo.TraceId;
 		    headers[Constants.SPAN_ID] = traceInfo.SpanId;
 

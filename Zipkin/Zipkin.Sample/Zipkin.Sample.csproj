@@ -54,7 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backpack\BackpackCore.csproj">
+    <ProjectReference Include="..\..\Backpack\BackpackCore.csproj">
       <Project>{2924c2c6-993e-48ec-9cf6-33a78e75ca95}</Project>
       <Name>BackpackCore</Name>
     </ProjectReference>
