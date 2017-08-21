@@ -86,6 +86,8 @@ namespace BackpackCore
 			// unwind from innermost to parent
 			do
 			{
+				// ReSharper disable once PossibleMultipleEnumeration
+				// Justification: cleaners should run for each scope we are clearing
 				foreach (var backpackCleaner in cleaners)
 				{
 					backpackCleaner.Cleanup(currentScope, e);

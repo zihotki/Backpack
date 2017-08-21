@@ -29,6 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.XB3Propagation", "Zi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.Tests", "Zipkin\Zipkin.Tests\Zipkin.Tests.csproj", "{62F0CB8D-E6FD-43CD-B94E-E5775BA6990B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Various", "1. Various", "{6ECCBB88-5490-4B4C-BD25-11E3742BC692}"
+	ProjectSection(SolutionItems) = preProject
+		Backpack\Notes.txt = Backpack\Notes.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

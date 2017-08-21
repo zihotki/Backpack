@@ -19,7 +19,7 @@ namespace Zipkin.EasyNetQ
 			where TMessage : class
 			where TConsumer : IConsume<TMessage>
 		{
-			using (var scope = _component.BeginLifetimeScope("message"))
+			using (var scope = _component.BeginLifetimeScope("RabbitMQ message"))
 			{
 				var consumer = scope.Resolve<TConsumer>();
 
@@ -29,11 +29,11 @@ namespace Zipkin.EasyNetQ
 				try
 				{
 					consumer.Consume(message);
-					trace.Finish();
+					trace.Close();
 				}
 				catch (Exception e)
 				{
-					trace.Finish(e);
+					trace.Close(e);
 					throw;
 				}
 			}
@@ -43,7 +43,7 @@ namespace Zipkin.EasyNetQ
 			where TMessage : class
 			where TConsumer : IConsumeAsync<TMessage>
 		{
-			var scope = _component.BeginLifetimeScope("async-message");
+			var scope = _component.BeginLifetimeScope("RabbitMQ async-message");
 
 			var traceInfo = TraceInfoUtil.TraceInfo;
 			var trace = new ServerBackpackTrace(GetTraceName<TMessage, TConsumer>(), traceInfo);
@@ -58,13 +58,13 @@ namespace Zipkin.EasyNetQ
 
 					if (task.IsFaulted && task.Exception != null)
 					{
-						trace.Finish(task.Exception);
+						trace.Close(task.Exception);
 
 						tsc.SetException(task.Exception);
 					}
 					else
 					{
-						trace.Finish();
+						trace.Close();
 
 						tsc.SetResult(null);
 					}

@@ -9,35 +9,37 @@ namespace Zipkin.Tracers
 	{
 		public LocalBackpackTrace(string name) : base(name)
 		{
+			Scope.Add(BackpackConstants.SpanName, name);
+			Scope.Add(BackpackConstants.SpanType, (byte)SpanType.Local);
+
+			// sampling should be also set at the root from parent scope or decided if it's a root scope
+			var isSampled = Scope.Get(BackpackConstants.IsSampled);
+			if (isSampled == null || isSampled.BoolValue.HasValue == false)
+			{
+				Scope.Add(BackpackConstants.IsSampled, ZipkinConfig.ShouldSample());
+			}
+
+			// We need to get parent span id before generating and adding a new one
 			var parentSpanId = Backpack.Get(BackpackConstants.SpanId, default(long));
 
-			// isdebug should be also set somewhere at the root
-			var isDebug = Scope.Get(BackpackConstants.IsDebug, false);
-			// sampling should be also set at the root from parent scope or decided if it's a root scope
-			var isSampled = Scope.Get(BackpackConstants.IsSampled, false);
+			Scope.Add(BackpackConstants.SpanId, RandomHelper.NewId());
 
-			if (isSampled || isDebug)
+			if (parentSpanId != default(long))
 			{
-				Scope.Add(BackpackConstants.SpanName, name);
-				// for child traces it should come from backpack itself
-				// for root it should be set by infrastructure
-				// Backpack.Add(ZipkinItems.TraceId, "");
-				// span id is always unique
-				Scope.Add(BackpackConstants.SpanId, RandomHelper.NewId());
-
-				if (parentSpanId != default(long))
-				{
-					Scope.Add(BackpackConstants.ParentSpanId, parentSpanId);
-				}
-
-				Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-					isHidden: true);
-				Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
-					isHidden: true);
-
-				// The function should be used only to populate data for the span into Backpack
-				Scope.Add(BackpackConstants.SpanType, (byte)SpanType.Local);
+				Scope.Add(BackpackConstants.ParentSpanId, parentSpanId);
 			}
+
+			// if TraceId is not set we need to set it with a new value
+			var traceId = Backpack.Get(BackpackConstants.TraceId);
+			if (traceId == null || traceId.GuidValue.HasValue == false)
+			{
+				Scope.Add(BackpackConstants.TraceId, Guid.NewGuid());
+			}
+
+			Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+				isHidden: true);
+			Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
+				isHidden: true);
 		}
 	}
 }

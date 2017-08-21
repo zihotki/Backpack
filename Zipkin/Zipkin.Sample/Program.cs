@@ -35,7 +35,7 @@ namespace Zipkin.Sample
 
 			Console.ReadLine();
 
-			trace.Finish();
+			trace.Close();
 		}
 
 		private static void Thread2Work(object scopeObj)
@@ -72,11 +72,11 @@ namespace Zipkin.Sample
 
 						Thread2ItemProcessing();
 
-						client.Finish();
-						localTrace.Finish();
+						client.Close();
+						localTrace.Close();
 					}
 
-					trace.Finish();
+					trace.Close();
 				}
 				catch (Exception e)
 				{
@@ -103,9 +103,9 @@ namespace Zipkin.Sample
 
 				Thread.Sleep(500); // imitating work
 
-				local.Finish();
+				local.Close();
 
-				serverTrace.Finish();
+				serverTrace.Close();
 			}
 			catch (Exception e)
 			{

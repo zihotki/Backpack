@@ -9,70 +9,70 @@ namespace Zipkin.Tracers
 	{
 		public ServerBackpackTrace(string name) : base(name)
 		{
-			var parentSpanId = Backpack.Get(BackpackConstants.SpanId, default(long));
+			// According to the Open Zipkin docs, server trace should use SpanId and ParentSpanId 
+			// provided from a client if any, otherwise a new SpanId should be generated and ParentSpanId should be null
+			long? parentSpanId = null;
+			var spanId = Backpack.Get(BackpackConstants.SpanId, default(long));
 
-			// isdebug should be also set somewhere at the root
-			var isDebug = Scope.Get(BackpackConstants.IsDebug, false);
-			// sampling should be also set at the root from parent scope or decided if it's a root scope
-			var isSampled = Scope.Get(BackpackConstants.IsSampled, false);
-
-			if (isSampled || isDebug)
+			if (spanId != default(long))
 			{
-				Scope.Add(BackpackConstants.SpanName, name);
-				// for child traces it should come from backpack itself
-				// for root it should be set by infrastructure
-				// Backpack.Add(ZipkinItems.TraceId, "");
-				// span id is always unique
-				Scope.Add(BackpackConstants.SpanId, RandomHelper.NewId());
-
-				if (parentSpanId != default(long))
+				var backpackedParentSpanId = Backpack.Get(BackpackConstants.ParentSpanId, default(long));
+				if (backpackedParentSpanId != default(long))
 				{
-					Scope.Add(BackpackConstants.ParentSpanId, parentSpanId);
+					parentSpanId = backpackedParentSpanId;
 				}
+			}	
+			else
+			{
+				spanId = RandomHelper.NewId();
+			}
 
-				Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-					isHidden: true);
-				Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
-					isHidden: true);
+			var traceId = Backpack.Get(BackpackConstants.TraceId, Guid.Empty);
+			if (traceId == Guid.Empty)
+			{
+				traceId = Guid.NewGuid();
+			}
 
-				// ReSharper disable once VirtualMemberCallInConstructor
-				// The function should be used only to populate data for the span into Backpack
-				Scope.Add(BackpackConstants.SpanType, (byte)SpanType.Server);
+			InitTrace(name, spanId, parentSpanId, traceId);
+
+			// if sampling is not provided by callers then we need to decide whether it's sampled
+			var isSampledItem = Backpack.Get(BackpackConstants.IsSampled);
+			if (isSampledItem == null || isSampledItem.BoolValue.HasValue == false)
+			{
+				var isSampled = ZipkinConfig.ShouldSample();
+				Scope.Add(BackpackConstants.IsSampled, isSampled);
 			}
 		}
 
 		public ServerBackpackTrace(string name, TraceInfo traceInfo) : base(name)
 		{
-			var parentSpanId = Backpack.Get(BackpackConstants.SpanId, default(long));
+			InitTrace(name, traceInfo.SpanId, traceInfo.ParentSpanId, traceInfo.TraceId);
 
-			// isdebug should be also set somewhere at the root
-			var isDebug = Scope.Get(BackpackConstants.IsDebug, false);
-			// sampling should be also set at the root from parent scope or decided if it's a root scope
-			var isSampled = Scope.Get(BackpackConstants.IsSampled, false);
-
-			if (isSampled || isDebug)
+			if (traceInfo.IsDebug.HasValue)
 			{
-				Scope.Add(BackpackConstants.SpanName, name);
-				// for child traces it should come from backpack itself
-				// for root it should be set by infrastructure
-				// Backpack.Add(ZipkinItems.TraceId, "");
-				// span id is always unique
-				Scope.Add(BackpackConstants.SpanId, RandomHelper.NewId());
-
-				if (parentSpanId != default(long))
-				{
-					Scope.Add(BackpackConstants.ParentSpanId, parentSpanId);
-				}
-
-				Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-					isHidden: true);
-				Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
-					isHidden: true);
-
-				// ReSharper disable once VirtualMemberCallInConstructor
-				// The function should be used only to populate data for the span into Backpack
-				Scope.Add(BackpackConstants.SpanType, (byte)SpanType.Server);
+				Scope.Add(BackpackConstants.IsDebug, traceInfo.IsDebug.Value);
 			}
+			
+			Scope.Add(BackpackConstants.IsSampled, traceInfo.IsSampled ?? ZipkinConfig.ShouldSample());
+		}
+
+		private void InitTrace(string name, long spanId, long? parentSpanId, Guid traceId)
+		{
+			Scope.Add(BackpackConstants.SpanName, name);
+			Scope.Add(BackpackConstants.SpanType, (byte)SpanType.Server);
+
+			Scope.Add(BackpackConstants.TraceId, traceId);
+			Scope.Add(BackpackConstants.SpanId, spanId);
+
+			if (parentSpanId != null && parentSpanId != default(long))
+			{
+				Scope.Add(BackpackConstants.ParentSpanId, parentSpanId.Value);
+			}
+
+			Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+				isHidden: true);
+			Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
+				isHidden: true);
 		}
 	}
 }

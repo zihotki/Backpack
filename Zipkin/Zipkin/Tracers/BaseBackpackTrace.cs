@@ -14,7 +14,7 @@ namespace Zipkin.Tracers
 		    Scope = Backpack.CreateScope(name);
 	    }
 
-		public void Finish(Exception e = null)
+		public void Close(Exception e = null)
 		{
 			Scope.Clear(e);
 	    }
