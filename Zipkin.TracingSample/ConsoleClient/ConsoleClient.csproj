@@ -58,7 +58,7 @@
       <Project>{2924c2c6-993e-48ec-9cf6-33a78e75ca95}</Project>
       <Name>BackpackCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zipkin\Zipkin.csproj">
+    <ProjectReference Include="..\..\Zipkin\Zipkin\Zipkin.csproj">
       <Project>{2ebd5c32-ed3b-4e90-9b24-fa2dd7450238}</Project>
       <Name>Zipkin</Name>
     </ProjectReference>
