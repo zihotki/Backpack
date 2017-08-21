@@ -40,7 +40,7 @@ namespace Zipkin.Tracers
 			if (isSampledItem == null || isSampledItem.BoolValue.HasValue == false)
 			{
 				var isSampled = ZipkinConfig.ShouldSample();
-				Scope.Add(BackpackConstants.IsSampled, isSampled);
+				Scope.Add(BackpackConstants.IsSampled, isSampled, isHidden: true);
 			}
 		}
 
@@ -53,7 +53,7 @@ namespace Zipkin.Tracers
 				Scope.Add(BackpackConstants.IsDebug, traceInfo.IsDebug.Value);
 			}
 			
-			Scope.Add(BackpackConstants.IsSampled, traceInfo.IsSampled ?? ZipkinConfig.ShouldSample());
+			Scope.Add(BackpackConstants.IsSampled, traceInfo.IsSampled ?? ZipkinConfig.ShouldSample(), isHidden: true);
 		}
 
 		private void InitTrace(string name, long spanId, long? parentSpanId, Guid traceId)

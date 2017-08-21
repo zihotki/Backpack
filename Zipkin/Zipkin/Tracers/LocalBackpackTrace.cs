@@ -16,7 +16,7 @@ namespace Zipkin.Tracers
 			var isSampled = Scope.Get(BackpackConstants.IsSampled);
 			if (isSampled == null || isSampled.BoolValue.HasValue == false)
 			{
-				Scope.Add(BackpackConstants.IsSampled, ZipkinConfig.ShouldSample());
+				Scope.Add(BackpackConstants.IsSampled, ZipkinConfig.ShouldSample(), isHidden: true);
 			}
 
 			// We need to get parent span id before generating and adding a new one
