@@ -48,6 +48,7 @@
     <Compile Include="ConsoleSpanDispatcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -57,6 +58,14 @@
     <ProjectReference Include="..\..\Backpack\BackpackCore.csproj">
       <Project>{2924c2c6-993e-48ec-9cf6-33a78e75ca95}</Project>
       <Name>BackpackCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Zipkin\Zipkin.HttpClient\Zipkin.HttpClient.csproj">
+      <Project>{d147accd-eaff-4ae8-afba-31268450a2e4}</Project>
+      <Name>Zipkin.HttpClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Zipkin\Zipkin.XB3Propagation\Zipkin.XB3Propagation.csproj">
+      <Project>{127f6dca-36b7-4ed2-af1c-b92c31fc1060}</Project>
+      <Name>Zipkin.XB3Propagation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Zipkin\Zipkin\Zipkin.csproj">
       <Project>{2ebd5c32-ed3b-4e90-9b24-fa2dd7450238}</Project>

@@ -1,23 +1,60 @@
 ﻿using System;
 using System.Net;
 using System.Threading;
-using BackpackCore;
 using Zipkin.Constants;
-using Zipkin.Tracers;
 
 namespace Zipkin.Sample
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
+		{
+			var bootstrap = new ZipkinBootstrapper("ConsoleClient");
+			bootstrap
+				.DispatchTo(new ConsoleSpanDispatcher())
+				.WithSampleRate(1)
+				.Start();
+
+			var shopClient = new ShopClient();
+
+			while (true)
+			{
+				Console.WriteLine("Press Enter to put an order or Ctrl+c to exit.");
+				Console.ReadLine();
+
+				shopClient.SendOrder();
+			}
+		}
+
+	}
+
+	/*class Program
+	{
+		static void Main()
+		{
+			var bootstrap = new ZipkinBootstrapper("ConsoleClient");
+			bootstrap
+				.DispatchTo(new ConsoleSpanDispatcher())
+				.WithSampleRate(1)
+				.Start();
+
+			var shopClient = new ShopClient();
+
+			while (true)
+			{
+				Console.WriteLine("Press Enter to put an order or Ctrl+c to exit.");
+				Console.ReadLine();
+
+				shopClient.SendOrder();
+			}
+		}
+
+		static void Main1(string[] args)
 		{
 			var thread1 = "thread 1";
 			var thread2 = "thread 2";
 
-			var bootstrap = new ZipkinBootstrapper("hello", IPAddress.IPv6Loopback, 666);
-			bootstrap.DispatchTo(new ConsoleSpanDispatcher())
-				.WithSampleRate(1)
-				.Start();
+
 
 			var trace = new ClientBackpackTrace("root trace");
 			var scope = Backpack.CurrentScope;
@@ -117,5 +154,5 @@ namespace Zipkin.Sample
 		{
 			var scope = (BackpackScope) scopeObj;
 		}
-	}
+	}*/
 }

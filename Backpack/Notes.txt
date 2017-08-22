@@ -39,6 +39,8 @@ todo:
 	
 	implement support for binary annotations
 
+	!! Decide what to do when exception occures - do we need enforce tracing (Is Sampled or Is Debug to true) for the current trace or not?
+	!! If so, how do we put it to backpack to apply for all parent scopes of a trace?
 	
 
 

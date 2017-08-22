@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Various", "1. Various", 
 		Backpack\Notes.txt = Backpack\Notes.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.Http", "Zipkin\Zipkin.Http\Zipkin.Http.csproj", "{D147ACCD-EAFF-4AE8-AFBA-31268450A2E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.HttpClient", "Zipkin\Zipkin.HttpClient\Zipkin.HttpClient.csproj", "{D147ACCD-EAFF-4AE8-AFBA-31268450A2E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zipkin.Sample", "Zipkin.Sample", "{871FBA7B-7CA7-4B2F-AFDB-14BB014FB320}"
 EndProject
@@ -41,6 +41,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQConsumer", "Zipkin.TracingSample\RabbitMQConsumer\RabbitMQConsumer.csproj", "{CA5759F0-E72D-47C4-BC4C-EF6ABE4160E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "Zipkin.TracingSample\ConsoleClient\ConsoleClient.csproj", "{D19FDFFA-A94D-48E1-8847-781B3E3471D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipkin.AspNetCore", "Zipkin\Zipkin.AspNetCore\Zipkin.AspNetCore.csproj", "{F4DF83C7-1F5A-4E1D-B799-56FA0027C0C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{D19FDFFA-A94D-48E1-8847-781B3E3471D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D19FDFFA-A94D-48E1-8847-781B3E3471D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D19FDFFA-A94D-48E1-8847-781B3E3471D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4DF83C7-1F5A-4E1D-B799-56FA0027C0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4DF83C7-1F5A-4E1D-B799-56FA0027C0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4DF83C7-1F5A-4E1D-B799-56FA0027C0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4DF83C7-1F5A-4E1D-B799-56FA0027C0C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{5D7202BD-04C6-4C15-9965-03E6AC7630DD} = {5A813BF6-2AFB-4EE3-9E98-9986C5AD9436}
 		{CA5759F0-E72D-47C4-BC4C-EF6ABE4160E5} = {5A813BF6-2AFB-4EE3-9E98-9986C5AD9436}
 		{D19FDFFA-A94D-48E1-8847-781B3E3471D7} = {5A813BF6-2AFB-4EE3-9E98-9986C5AD9436}
+		{F4DF83C7-1F5A-4E1D-B799-56FA0027C0C4} = {9C533E58-C6B8-4AAC-A00D-94E78B2216CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {939C508E-D507-491B-A1DD-E7E68A58576D}

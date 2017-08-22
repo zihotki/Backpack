@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Zipkin;
+using Zipkin.AspNetCore;
+using Zipkin.Codecs;
+using Zipkin.Dispatchers;
 
 namespace WebApiServer
 {
@@ -20,7 +20,13 @@ namespace WebApiServer
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }
+
+	        var bootstrap = new ZipkinBootstrapper("ShoppingApiServer");
+	        bootstrap
+		        .DispatchTo(new VoidDispatcher())
+		        .WithSampleRate(1)
+		        .Start();
+		}
 
         public IConfigurationRoot Configuration { get; }
 
@@ -38,6 +44,7 @@ namespace WebApiServer
             loggerFactory.AddDebug();
 
             app.UseMvc();
+	        app.UseZipkin("Incoming Request");
         }
     }
 }
