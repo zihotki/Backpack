@@ -46,7 +46,7 @@ namespace Zipkin.Sample
 
 				using (var request = new HttpRequestMessage())
 				{
-					request.RequestUri = new Uri("orders");
+					request.RequestUri = new Uri(HttpClient.BaseAddress, "orders");
 					request.Method = HttpMethod.Post;
 					request.Content = new StringContent($"{{'orderId': '{orderId}', 'itemsCount': {itemsToOrder}, 'priority':{isPriorityOrder} }}",
 						Encoding.UTF8, "application/json");
@@ -59,6 +59,8 @@ namespace Zipkin.Sample
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine(e.ToString());
+
 				rootScope.Clear(e);
 			}
 		}

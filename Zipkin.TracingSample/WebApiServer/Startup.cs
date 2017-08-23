@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using EasyNetQ;
+using EasyNetQ.Interception;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +9,7 @@ using Zipkin;
 using Zipkin.AspNetCore;
 using Zipkin.Codecs;
 using Zipkin.Dispatchers;
+using Zipkin.EasyNetQ;
 
 namespace WebApiServer
 {
@@ -23,7 +26,7 @@ namespace WebApiServer
 
 	        var bootstrap = new ZipkinBootstrapper("ShoppingApiServer");
 	        bootstrap
-		        .DispatchTo(new VoidDispatcher())
+		        .DispatchTo(new VoidSpanDispatcher())
 		        .WithSampleRate(1)
 		        .Start();
 		}
@@ -35,6 +38,12 @@ namespace WebApiServer
         {
             // Add framework services.
             services.AddMvc();
+
+	        var bus = RabbitHutch.CreateBus("username=guest;password=guest;host=localhost", r =>
+	        {
+		        r.EnableInterception(i => i.Add(new ZipkinTraceInterceptor()));
+	        });
+	        services.AddSingleton(bus);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,8 +52,8 @@ namespace WebApiServer
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
 	        app.UseZipkin("Incoming Request");
+			app.UseMvc();
         }
     }
 }

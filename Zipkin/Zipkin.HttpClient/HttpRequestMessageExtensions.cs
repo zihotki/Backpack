@@ -21,7 +21,7 @@ namespace Zipkin.Http
 
 		    foreach (var zipkinHeader in zipkinHeaders)
 		    {
-			    headers.Add(zipkinHeader.Key, zipkinHeader.Value);
+			    headers.TryAddWithoutValidation(zipkinHeader.Key, zipkinHeader.Value);
 		    }
 	    }
     }

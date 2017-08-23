@@ -7,5 +7,14 @@
 		public const string PARENT_SPAN_ID = "X─B3─ParentSpanId";
 		public const string SAMPLED = "X─B3─Sampled";
 		public const string FLAGS = "X-B3-Flags";
+
+		public static string[] KEYS = new[]
+		{
+			TRACE_ID,
+			SPAN_ID,
+			PARENT_SPAN_ID,
+			SAMPLED,
+			FLAGS
+		};
 	}
 }

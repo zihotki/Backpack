@@ -1,10 +1,9 @@
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using BackpackCore;
+using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 
 using Zipkin.Tracers;
+using Zipkin.XB3Propagation;
 
 namespace Zipkin.AspNetCore
 {
@@ -14,8 +13,12 @@ namespace Zipkin.AspNetCore
 		{
 			app.Use((context, next) =>
 			{
-				var clientTrace = new ServerBackpackTrace(requestTraceName);
-				// todo: load trace info from request context  
+				var zipkinHeaders = context.Request.Headers.Where(x => XB3Propagation.Constants.KEYS.Any(k => string.Equals(x.Key, k, StringComparison.OrdinalIgnoreCase)))
+					.ToDictionary(x => x.Key, x => x.Value.FirstOrDefault());
+
+				var traceInfo = zipkinHeaders.LoadTraceInfo();
+			
+				var clientTrace = new ServerBackpackTrace(requestTraceName, traceInfo);
 
 				return next()
 					.ContinueWith(x =>

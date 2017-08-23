@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Autofac;
 using EasyNetQ.AutoSubscribe;
+using EasyNetQ.Consumer;
 using Zipkin.Tracers;
 
 namespace Zipkin.EasyNetQ

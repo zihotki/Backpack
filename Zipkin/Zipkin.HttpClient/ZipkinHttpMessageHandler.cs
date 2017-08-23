@@ -9,7 +9,7 @@ namespace Zipkin.Http
 {
 	public class ZipkinHttpMessageHandler : DelegatingHandler
 	{
-		public ZipkinHttpMessageHandler()
+		public ZipkinHttpMessageHandler() : base(new HttpClientHandler())
 		{
 		}
 

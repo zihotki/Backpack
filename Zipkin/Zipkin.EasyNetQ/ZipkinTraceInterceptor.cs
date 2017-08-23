@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using EasyNetQ.Interception;
 using Zipkin.XB3Propagation;
 
@@ -7,7 +8,14 @@ namespace Zipkin.EasyNetQ
 	{
 		public RawMessage OnProduce(RawMessage rawMessage)
 		{
-			rawMessage.Properties.Headers.WriteX3BHeaders();
+			var stringHeaders = new Dictionary<string, string>();
+			stringHeaders.WriteX3BHeaders();
+
+			var messageHeaders = rawMessage.Properties.Headers;
+			foreach (var stringHeader in stringHeaders)
+			{
+				messageHeaders.Add(stringHeader.Key, stringHeader.Value);
+			}
 			
 			return rawMessage;
 		}

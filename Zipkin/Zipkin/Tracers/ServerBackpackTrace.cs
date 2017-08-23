@@ -9,6 +9,23 @@ namespace Zipkin.Tracers
 	{
 		public ServerBackpackTrace(string name) : base(name)
 		{
+			CreateNewServerTrace(name);
+		}
+
+		public ServerBackpackTrace(string name, TraceInfo traceInfo) : base(name)
+		{
+			if (traceInfo == null)
+			{
+				CreateNewServerTrace(name);
+			}
+			else
+			{
+				CreateNewServerTrace(name, traceInfo);
+			}
+		}
+
+		private void CreateNewServerTrace(string name)
+		{
 			// According to the Open Zipkin docs, server trace should use SpanId and ParentSpanId 
 			// provided from a client if any, otherwise a new SpanId should be generated and ParentSpanId should be null
 			long? parentSpanId = null;
@@ -21,7 +38,7 @@ namespace Zipkin.Tracers
 				{
 					parentSpanId = backpackedParentSpanId;
 				}
-			}	
+			}
 			else
 			{
 				spanId = RandomHelper.NewId();
@@ -43,8 +60,8 @@ namespace Zipkin.Tracers
 				Scope.Add(BackpackConstants.IsSampled, isSampled, isHidden: true);
 			}
 		}
-
-		public ServerBackpackTrace(string name, TraceInfo traceInfo) : base(name)
+		
+		private void CreateNewServerTrace(string name, TraceInfo traceInfo)
 		{
 			InitTrace(name, traceInfo.SpanId, traceInfo.ParentSpanId, traceInfo.TraceId);
 
@@ -52,7 +69,7 @@ namespace Zipkin.Tracers
 			{
 				Scope.Add(BackpackConstants.IsDebug, traceInfo.IsDebug.Value);
 			}
-			
+
 			Scope.Add(BackpackConstants.IsSampled, traceInfo.IsSampled ?? ZipkinConfig.ShouldSample(), isHidden: true);
 		}
 
