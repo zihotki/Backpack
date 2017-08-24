@@ -13,10 +13,7 @@ namespace Zipkin.Sample
 	{
 		private readonly Random _random = new Random();
 
-		private readonly HttpClient _httpClient = new HttpClient(new ZipkinHttpMessageHandler())
-		{
-			BaseAddress = new Uri("http://localhost:20186/api/")
-		};
+		private readonly HttpClient _httpClient = new HttpClient(new ZipkinHttpMessageHandler()) {BaseAddress = new Uri("http://localhost:20186/api/")};
 
 		public ShopClient()
 		{
@@ -36,22 +33,18 @@ namespace Zipkin.Sample
 			var rootScope = Backpack.CreateScope("Unit of Work");
 			try
 			{
-				var trace = new LocalBackpackTrace("Send Order");
+				var trace = new ServerBackpackTrace("Send Order");
 
 				var orderId = Guid.NewGuid();
 
 				Backpack.Add("OrderId", orderId);
 				Backpack.Add("ItemsCount", itemsToOrder);
 
-				var isPriorityOrder = false;
-				if (itemsToOrder % 3 == 0)
-				{
-					// todo: logging message
-					isPriorityOrder = true;
-				}
+				await Task.Delay(150 * itemsToOrder);
+
+				var isPriorityOrder = itemsToOrder % 3 == 0;
 
 				var json = $"{{\"orderId\": \"{orderId}\", \"itemsCount\": {itemsToOrder}, \"priority\":{isPriorityOrder.ToString().ToLower()} }}";
-
 				await _httpClient.PostAsync("orders", new StringContent(json, Encoding.UTF8, "application/json"));
 
 				// will automatically close the trace when closing root scope

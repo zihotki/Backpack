@@ -1,4 +1,5 @@
-﻿using EasyNetQ;
+﻿using System.Net;
+using EasyNetQ;
 using EasyNetQ.Interception;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,10 +25,10 @@ namespace WebApiServer
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-	        var bootstrap = new ZipkinBootstrapper("ShoppingApiServer");
+	        var bootstrap = new ZipkinBootstrapper("Shopping Api Server");
 	        bootstrap
-		        .DispatchTo(new VoidSpanDispatcher())
-		        .WithSampleRate(1)
+				.DispatchToZipkin("localhost")
+				.WithSampleRate(1)
 		        .Start();
 		}
 

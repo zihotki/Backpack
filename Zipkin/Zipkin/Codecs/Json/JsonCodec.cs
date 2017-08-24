@@ -14,15 +14,25 @@ namespace Zipkin.Codecs
 		{
 			using (var w = new StreamWriter(stream, Encoding.UTF8, 128, leaveOpen: true))
 			{
+				w.Write("[");
+				var firstSpan = true;
 				foreach (var span in spans)
 				{
 					if (span == null)
 					{
 						continue;
 					}
+					
+					if (!firstSpan)
+					{
+						w.Write(",");
+					}
+
+					firstSpan = false;
 
 					InternalWriteSpan(w, span);
 				}
+				w.Write("]");
 			}
 		}
 
@@ -49,27 +59,30 @@ namespace Zipkin.Codecs
 			w.WriteJsonEscaped(span.Name);
 			w.Write('"');
 
-			if (span.ParentId.HasValue)
+			if (span.ParentId.HasValue && span.ParentId != default(long))
 			{
 				w.Write(",\"parentId\":\"");
 				w.WriteLowerHex(span.ParentId.Value);
 				w.Write('"');
 			}
 
-			w.Write(",\"timestamp\":");
+			/*w.Write(",\"timestamp\":");
 			w.Write(span.TimestampInUnixMicroseconds);
 
 			w.Write(",\"duration\":");
 			w.Write(span.DurationInMicroseconds);
+			*/
 
 			w.Write(",\"annotations\":");
 			WriteAnnotations(span, w);
 
+			/*
 			if (span.BinaryAnnotations != null && span.BinaryAnnotations.Length != 0)
 			{
 				w.Write(",\"binaryAnnotations\":");
 				WriteBinaryAnnotations(span, w);
 			}
+			*/
 
 			if (span.IsDebug)
 			{
@@ -174,6 +187,7 @@ namespace Zipkin.Codecs
 
 			w.Write("[{\"timestamp\":");
 			w.Write(span.TimestampInUnixMicroseconds);
+
 			w.Write(",\"value\":\"");
 			w.Write(startTag);
 			w.Write("\",\"endpoint\":");
@@ -181,7 +195,7 @@ namespace Zipkin.Codecs
 			w.Write('}');
 
 			w.Write(",{\"timestamp\":");
-			w.Write(span.TimestampInUnixMicroseconds + span.DurationInMicroseconds);
+			w.Write((span.TimestampInUnixMicroseconds + span.DurationInMicroseconds));
 			w.Write(",\"value\":\"");
 			w.Write(endTag);
 			w.Write("\",\"endpoint\":");
@@ -198,18 +212,21 @@ namespace Zipkin.Codecs
 			w.WriteJsonEscaped(endpoint.ServiceName);
 			w.Write('"');
 
-			var ipv4 = endpoint.IPAddress.GetAddressBytes();
-			if (ipv4.Length != 0)
+			if (endpoint.IPAddress != null)
 			{
-				w.Write(",\"ipv4\":\"");
-				w.Write(ipv4[0]);
-				w.Write('.');
-				w.Write(ipv4[1]);
-				w.Write('.');
-				w.Write(ipv4[2]);
-				w.Write('.');
-				w.Write(ipv4[3]);
-				w.Write('"');
+				var ipv4 = endpoint.IPAddress.GetAddressBytes();
+				if (ipv4.Length != 0)
+				{
+					w.Write(",\"ipv4\":\"");
+					w.Write(ipv4[0]);
+					w.Write('.');
+					w.Write(ipv4[1]);
+					w.Write('.');
+					w.Write(ipv4[2]);
+					w.Write('.');
+					w.Write(ipv4[3]);
+					w.Write('"');
+				}
 			}
 
 			if (endpoint.Port.HasValue && endpoint.Port != 0)

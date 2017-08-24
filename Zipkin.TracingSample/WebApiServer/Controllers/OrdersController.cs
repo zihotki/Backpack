@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using EasyNetQ;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SampleMessages;
 using WebApiServer.Controllers.Models;
 
@@ -10,7 +11,7 @@ namespace WebApiServer.Controllers
 	public class OrdersController : Controller
 	{
 		private readonly IBus _bus;
-
+		
 		public OrdersController(IBus bus)
 		{
 			_bus = bus;
@@ -19,8 +20,8 @@ namespace WebApiServer.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Post([FromBody]Order value)
 		{
-			//await Task.Delay(1_000);
-
+			await Task.Delay(2_000);
+					
 			if (value.Priority)
 			{
 				_bus.Publish(new CreateOrderMessage

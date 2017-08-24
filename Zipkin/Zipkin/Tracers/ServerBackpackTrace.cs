@@ -86,7 +86,7 @@ namespace Zipkin.Tracers
 				Scope.Add(BackpackConstants.ParentSpanId, parentSpanId.Value);
 			}
 
-			Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+			Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMicroseconds(),
 				isHidden: true);
 			Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
 				isHidden: true);

@@ -36,7 +36,7 @@ namespace Zipkin.Tracers
 				Scope.Add(BackpackConstants.TraceId, Guid.NewGuid());
 			}
 
-			Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+			Scope.Add(BackpackConstants.SpanStartInUnixTimeMicro, DateTimeOffset.UtcNow.ToUnixTimeMicroseconds(),
 				isHidden: true);
 			Scope.Add(BackpackConstants.SpanStartInTicks, TickClock.Start(),
 				isHidden: true);

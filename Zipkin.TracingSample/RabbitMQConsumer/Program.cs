@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading;
 using EasyNetQ;
 using EasyNetQ.Interception;
@@ -14,10 +15,10 @@ namespace RabbitMQConsumer
     {
 	    static void Main(string[] args)
 	    {
-		    var bootstrap = new ZipkinBootstrapper("Order Service");
+		    var bootstrap = new ZipkinBootstrapper("Order Service Worker");
 		    bootstrap
-			    .DispatchTo(new ConsoleSpanDispatcher())
-			    .WithSampleRate(1)
+			    .DispatchToZipkin("localhost")
+				.WithSampleRate(1)
 			    .Start();
 
 			using (var bus = RabbitHutch.CreateBus("username=guest;password=guest;host=localhost", r =>
@@ -46,7 +47,7 @@ namespace RabbitMQConsumer
 		    try
 		    {
 				Console.WriteLine($"Order {orderMessage.OrderId} received");
-			    Thread.Sleep(5_000);
+			    Thread.Sleep(1_000);
 
 				trace.Close();
 		    }

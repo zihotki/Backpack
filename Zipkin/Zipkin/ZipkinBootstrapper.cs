@@ -65,7 +65,7 @@ namespace Zipkin
 
 			return new ZipkinBootstrapper(serviceName)
 				.WithSampleRate(sampleRate)
-				.ZipkinAt(zipkinServer);
+				.DispatchToZipkin(zipkinServer);
 		}
 
 		/// <summary>
@@ -99,7 +99,7 @@ namespace Zipkin
 		/// <summary>
 		/// Use to define where the zipkin server is located.
 		/// </summary>
-		public ZipkinBootstrapper ZipkinAt(string zipkinHostname, int httpPort = 9411)
+		public ZipkinBootstrapper DispatchToZipkin(string zipkinHostname, int httpPort = 9411)
 		{
 			_zipkinHostname = zipkinHostname;
 			_httpPort = httpPort;
