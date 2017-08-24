@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using BackpackCore;
 using Zipkin.Constants;
 
@@ -65,7 +66,7 @@ namespace Zipkin.XB3Propagation
 			    return null;
 		    }
 
-		    var boolObj = headers[headerName];
+		    var boolObj = GetHeader(headers, headerName);
 		    if (boolObj is string boolStr)
 		    {
 			    if (bool.TryParse(boolStr, out var boolParsed))
@@ -106,7 +107,7 @@ namespace Zipkin.XB3Propagation
 			    return null;
 		    }
 
-		    var longObj = headers[headerName];
+		    var longObj = GetHeader(headers, headerName);
 		    if (longObj is string longString)
 		    {
 			    if (long.TryParse(longString, out var longParsed))
@@ -132,7 +133,7 @@ namespace Zipkin.XB3Propagation
 			    return null;
 		    }
 
-		    var guidObj = headers[headerName];
+		    var guidObj = GetHeader(headers, headerName);
 		    if (guidObj is string guidString)
 		    {
 			    if (Guid.TryParse(guidString, out var parsedGuid))
@@ -151,11 +152,25 @@ namespace Zipkin.XB3Propagation
 		    return null;
 	    }
 
-	    #endregion
+	    private static object GetHeader(IDictionary<string, object> headers, string headerName)
+	    {
+		    var header = headers[headerName];
+		    if (header is byte[] headerBytes)
+		    {
+			    return Encoding.UTF8.GetString(headerBytes);
+		    }
 
-	    #region IDictionary<string, string>
+		    return header;
+	    }
 
-	    public static void WriteX3BHeaders(this IDictionary<string, string> headers)
+
+
+
+		#endregion
+
+		#region IDictionary<string, string>
+
+		public static void WriteX3BHeaders(this IDictionary<string, string> headers)
 	    {
 		    var traceInfo = ReadTraceInfo();
 		    if (traceInfo == null)

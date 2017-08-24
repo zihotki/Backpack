@@ -18,18 +18,18 @@ namespace Zipkin.AspNetCore
 
 				var traceInfo = zipkinHeaders.LoadTraceInfo();
 			
-				var clientTrace = new ServerBackpackTrace(requestTraceName, traceInfo);
+				var serverTrace = new ServerBackpackTrace(requestTraceName, traceInfo);
 
 				return next()
 					.ContinueWith(x =>
 						{
 							if (x.IsFaulted)
 							{
-								clientTrace.Close(x.Exception);
+								serverTrace.Close(x.Exception);
 							}
 							else
 							{
-								clientTrace.Close();
+								serverTrace.Close();
 							}
 						}
 					);

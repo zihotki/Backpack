@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using BackpackCore;
@@ -10,16 +11,21 @@ namespace Zipkin.Sample
 {
 	public class ShopClient
 	{
-		private static readonly Random Random = new Random();
+		private readonly Random _random = new Random();
 
-		private static readonly HttpClient HttpClient = new HttpClient(new ZipkinHttpMessageHandler())
+		private readonly HttpClient _httpClient = new HttpClient(new ZipkinHttpMessageHandler())
 		{
 			BaseAddress = new Uri("http://localhost:20186/api/")
 		};
 
+		public ShopClient()
+		{
+			_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+		}
+
 		public void SendOrder()
 		{
-			var itemsCountToOrder = Random.Next(10);
+			var itemsCountToOrder = _random.Next(10);
 
 			Task.Run(() => SendOrderAsync(itemsCountToOrder));
 			Console.WriteLine($"Scheduled order for {itemsCountToOrder} items.");
@@ -44,15 +50,9 @@ namespace Zipkin.Sample
 					isPriorityOrder = true;
 				}
 
-				using (var request = new HttpRequestMessage())
-				{
-					request.RequestUri = new Uri(HttpClient.BaseAddress, "orders");
-					request.Method = HttpMethod.Post;
-					request.Content = new StringContent($"{{'orderId': '{orderId}', 'itemsCount': {itemsToOrder}, 'priority':{isPriorityOrder} }}",
-						Encoding.UTF8, "application/json");
+				var json = $"{{\"orderId\": \"{orderId}\", \"itemsCount\": {itemsToOrder}, \"priority\":{isPriorityOrder.ToString().ToLower()} }}";
 
-					await HttpClient.SendAsync(request);
-				}
+				await _httpClient.PostAsync("orders", new StringContent(json, Encoding.UTF8, "application/json"));
 
 				// will automatically close the trace when closing root scope
 				rootScope.Clear();

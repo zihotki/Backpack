@@ -19,13 +19,13 @@ namespace WebApiServer.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Post([FromBody]Order value)
 		{
-			await Task.Delay(1_000);
+			//await Task.Delay(1_000);
 
 			if (value.Priority)
 			{
 				_bus.Publish(new CreateOrderMessage
 				{
-					OrderId = value.Id,
+					OrderId = value.OrderId,
 					ItemsCount = value.ItemsCount
 				});
 			}
@@ -33,7 +33,7 @@ namespace WebApiServer.Controllers
 			{
 				_bus.Publish(new CreatePriorityOrderMessage
 				{
-					OrderId = value.Id,
+					OrderId = value.OrderId,
 					ItemsCount = value.ItemsCount
 				});
 			}
